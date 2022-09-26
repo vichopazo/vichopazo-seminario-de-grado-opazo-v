@@ -1,4 +1,4 @@
-# The evolution of environmental issues in Chilean foreign policy strategy. Applying Latent Dirichlet Allocation and Structural Topic Modelling to the UN General Debate interventions by chilean officials from 1970 to 2022 (under development*)
+# The evolution of environmental issues in Chilean foreign policy strategy. Applying Latent Dirichlet Allocation and Structural Topic Modelling to the UN General Debate interventions by Chilean officials from 1970 to 2022 (under development*)
 
 Topic modelling analysis of all General Debate of the United Nations General Assembly speeches pronounced by chilean representatives/heads of state from 1970 to 2022. This repository contains a newly created corpus available for public use, namely the "UNGDC Chile (1970-2022)".
 
