@@ -1,6 +1,6 @@
-#Seminario de Grado Medioambiente y Sociedad, Sociología UAH (en desarrollo*)
+# Seminario de Grado Medioambiente y Sociedad, Sociología UAH (en desarrollo*)
 
-#Consideraciones metodológicas relevantes
+# Consideraciones metodológicas relevantes
 
 Por diferentes motivos técnicos (i. e, formato y/o disponibilidad de los textos) la base de datos se creó a partir de múltiples fuentes, a saber: 
 
