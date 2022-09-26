@@ -1,6 +1,10 @@
-# Seminario de Grado Medioambiente y Sociedad, Sociología UAH (en desarrollo*)
+# The evolution of environmental issues in Chilean foreign policy strategy. Applying Latent Dirichlet Allocation and Structural Topic Modelling to the UN General Debate interventions by chilean officials from 1970 to 2022 (under development*)
 
-# Consideraciones metodológicas relevantes
+Analysis of all General Debate of the United Nations General Assembly speeches pronounced by the chilean representatives/heads of state from 1970 to 2022. This repository contains a newly created corpus available for public use, namely the "UNGDC Chile (1970-2022)".
+
+# Relevant methodological considerations
+
+*Traducir...
 
 Por diferentes motivos técnicos (i. e, formato y/o disponibilidad de los textos) la base de datos se creó a partir de múltiples fuentes, a saber: 
 
