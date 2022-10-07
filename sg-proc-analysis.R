@@ -5,7 +5,8 @@ pacman::p_load(ggplot2)
 library(topicmodels)
 library(quanteda)
 library(readtext)
-library(stm)
+library(tm)
+library(wordcloud)
 
 #Load dataset and readtext, UNGDC_Chile_1970_2022
 
@@ -24,12 +25,25 @@ ungd_chl <- readtext("UNGDC_Chile_1970_2022",
                      encoding = "UTF-8")
 
 
-#Reshape corpus into paragraphs and create corpus from ed_dataset 
+#Pre-processing (creating corpus and document term matrix)
 
-ungdcorp_chl <- corpus(ungd_chl)
+corp <- corpus(ungd_chl)
 
-dfm = dfm(ungdcorp_chl, remove_punct=T, remove=stopwords("spanish"))
+ungdcorp_chl = corpus_reshape(corp, to = "paragraphs")
 
+dfm = dfm(ungdcorp_chl, remove_punct=T, remove=stopwords("english"))
+dfm = dfm_trim(dfm, min_docfreq = 5)
+dtm = convert(dfm, to = "topicmodels")
 
-#Push to github (Mikhaylov, Slava; Baturo, Alexander; Dasandi, Niheer, 2017, "United Nations General Debate Corpus", doi:10.7910/DVN/0TJX8Y, Harvard Dataverse, V3)
+#Setting and running LDA, k = 20, ver https://www.un.org/sg/en/content/sg/secretary-generals-speeches
 
+set.seed(1)
+m = LDA(dtm, method = "Gibbs", k = 20, control = list(alpha = 0.1))
+
+topic_5 = 5
+words_5 = posterior(m)$terms[topic_5, ]
+topwords_5 = head(sort(words_5, decreasing=T), n = 30)
+
+#Wordcloud, topic_6
+
+wordcloud(names(topwords_5), topwords_5)
