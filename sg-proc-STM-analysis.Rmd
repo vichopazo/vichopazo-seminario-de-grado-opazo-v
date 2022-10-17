@@ -1,0 +1,11 @@
+---
+title: "The evolution of environmental issues in Chilean foreign policy discourse. Applying Structural Topic Modelling to the UN General Debate interventions by Chilean officials from 1971 to 2022"
+author: "Vicente Opazo Cortés"
+date: "2022-10-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+

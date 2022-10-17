@@ -1,7 +1,6 @@
-#Cargar paquetes
+#Library packages
 
 library(pacman)
-pacman::p_load(ggplot2)
 library(topicmodels)
 library(quanteda)
 library(readtext)
@@ -9,14 +8,14 @@ library(tm)
 library(wordcloud)
 library(ggplot2)
 
-#Load dataset and readtext, UNGDC_Chile_1970_2022
+#Load dataset and readtext, UNGDC_Chile_1971_2022
 
 
-url <- "https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1970-2022/data/63313d086063772afd92b766/UNGDC-Chile-1970-2022.zip"
+url <- "https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1971-2022/data/634ca5809cb4fe44f32f306d/UNGDC-Chile-1971-2022.zip"
 
 download.file(url, "UNGC_Chile.zip")
 unzip("UNGC_Chile.zip")
-ungd_chl <- readtext("UNGDC_Chile_1970_2022", 
+ungd_chl <- readtext("UNGDC_Chile_1971_2022", 
                      ignore_missing_files = FALSE, 
                      text_field = NULL,
                      docid_field = NULL, 
@@ -50,7 +49,7 @@ wordcloud(names(topwords), topwords, colors = c("black", "darkgreen", "turquoise
 
 #Top documents per topic, topic 1
 
-topic_1.docs = posterior(m)$topics[, topic_1]
+topic_1.docs = posterior(m)$topics[, topic]
 topic_1.docs = sort(topic_1.docs, decreasing=T)
 head(topic_1.docs)
 
@@ -93,6 +92,5 @@ words = posterior(m)$terms[topic, ]
 topwords = head(sort(words, decreasing=T), n = 30)
 wordcloud(names(topwords), topwords, colors = c("yellow1", "yellow3", "yellow4"))
 
-#Plotting topic evolution over time
 
 
