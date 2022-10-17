@@ -9,3 +9,52 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r library_packages, warning=FALSE, include=FALSE}
+library(pacman)
+pacman::p_load(readr, 
+               stm, 
+               dplyr, 
+               openxlsx, 
+               readtext, 
+               quanteda)
+
+```
+
+```{r download_data, warning=FALSE, include=FALSE}
+url <- "https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1971-2022/data/634ca5809cb4fe44f32f306d/UNGDC-Chile-1971-2022.zip" 
+download.file(url, "UNGC_Chile.zip")
+unzip("UNGC_Chile.zip")
+```
+
+```{r download_metadata, warning=FALSE, include=FALSE}
+url2 <- "https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1971-2022/data/634cc6be2752e45ef6bebd9e/metadata-UNGDC-Chile-1971-2022.xlsx" 
+download.file(url2, "metadata_UNGDC_Chile_1971_2022.xlsx", quiet = TRUE, mode = "wb")
+```
+
+```{r creating_dataset_from_data, warning=FALSE, include=FALSE}
+documents <- readtext("UNGDC_Chile_1971_2022", 
+                     ignore_missing_files = FALSE, 
+                     text_field = NULL,
+                     docid_field = NULL)
+```
+
+```{r creating_dataset_from_metadata, warning=FALSE, include=FALSE}
+meta_ungdc_chile <- read.xlsx("metadata_UNGDC_Chile_1971_2022.xlsx", sheet = 1)
+```
+
+```{r data_pre-processing, warning=FALSE, include=FALSE}
+data_proc <- textProcessor(documents$text, metadata = meta_ungdc_chile)
+output <- prepDocuments(data_proc$documents, data_proc$vocab, data_proc$meta)
+docs <- output$documents
+vocab <- output$vocab
+meta <-output$meta
+```
+
+```{r exploring_K, warning=FALSE, include=FALSE}
+findingk <- searchK(output$documents, output$vocab, K = c(5:30), prevalence =~ rating + s(day), data = meta, verbose=FALSE)
+
+plot(findingk)
+```
+
+
+

@@ -8,7 +8,7 @@ library(tm)
 library(wordcloud)
 library(ggplot2)
 
-#Load dataset and readtext, UNGDC_Chile_1971_2022
+#Load data and readtext, UNGDC_Chile_1971_2022
 
 
 url <- "https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1971-2022/data/634ca5809cb4fe44f32f306d/UNGDC-Chile-1971-2022.zip"
