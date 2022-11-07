@@ -7,6 +7,8 @@ library(readtext)
 library(tm)
 library(wordcloud)
 library(ggplot2)
+library(servr)
+library(LDAvis)
 
 #Load data and readtext, UNGDC_Chile_1971_2022
 
@@ -47,11 +49,21 @@ words = posterior(m)$terms[topic, ]
 topwords = head(sort(words, decreasing=T), n = 30)
 wordcloud(names(topwords), topwords, colors = c("black", "darkgreen", "turquoise2"))
 
-#Top documents per topic, topic 1
+#Top documents per topic, topics 1, 6 and 2
 
 topic_1.docs = posterior(m)$topics[, topic]
 topic_1.docs = sort(topic_1.docs, decreasing=T)
 head(topic_1.docs)
+
+topic = 6
+topic_6.docs = posterior(m)$topics[, topic]
+topic_6.docs = sort(topic_6.docs, decreasing=T)
+head(topic_6.docs)
+
+topic = 2
+topic_2.docs = posterior(m)$topics[, topic]
+topic_2.docs = sort(topic_2.docs, decreasing=T)
+head(topic_2.docs)
 
 #Topic preferences per year (per topic scores)
 
@@ -62,7 +74,7 @@ heatmap(as.matrix(tpp[-1]))
 
 #Other topics review
 
-topic = 2 #potential "Promotion of peaceful, co-operative and rules-based international relations"
+topic = 2 #potential "Promotion of co-operative, peaceful and rules-based international relations"
 words = posterior(m)$terms[topic, ]
 topwords = head(sort(words, decreasing=T), n = 30)
 wordcloud(names(topwords), topwords, colors = c("yellow1", "yellow3", "yellow4"))
@@ -92,5 +104,15 @@ words = posterior(m)$terms[topic, ]
 topwords = head(sort(words, decreasing=T), n = 30)
 wordcloud(names(topwords), topwords, colors = c("yellow1", "yellow3", "yellow4"))
 
+#LDA visualization
 
+dtm = dtm[slam::row_sums(dtm) > 0, ]
+phi = as.matrix(posterior(m)$terms)
+theta <- as.matrix(posterior(m)$topics)
+vocab <- colnames(phi)
+doc.length = slam::row_sums(dtm)
+term.freq = slam::col_sums(dtm)[match(vocab, colnames(dtm))]
 
+json = createJSON(phi = phi, theta = theta, vocab = vocab,
+                  doc.length = doc.length, term.frequency = term.freq)
+serVis(json)
