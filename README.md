@@ -1,6 +1,6 @@
-# The evolution of environmental issues in Chilean foreign policy discourse. Applying Structural Topic Modelling to the UN General Debate interventions by Chilean officials from 1971 to 2022 (ongoing*)
+# The evolution of environmental issues in Chilean foreign policy discourse since the return to democracy. Applying Structural Topic Modelling to the UN General Debate interventions by Chilean officials from 1990 to 2022 (ongoing*)
 
-Topic modelling analysis of all General Debate of the United Nations General Assembly speeches by Chilean representatives/heads of state from 1971 to 2022. This repository contains a newly created corpus available for public use, namely the "UNGDC Chile (1971-2022)" ([click here](https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1971-2022/data/634ca5809cb4fe44f32f306d/UNGDC-Chile-1971-2022.zip) to download, or check the Rproject code). 
+Topic modelling analysis of all General Debate of the United Nations General Assembly speeches by Chilean representatives/heads of state from 1990 to 2022. This repository contains a newly created corpus available for public use, namely the "UNGDC Chile (1971-2022)" ([click here](https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1971-2022/data/634ca5809cb4fe44f32f306d/UNGDC-Chile-1971-2022.zip) to download, or check the Rproject code), plus the corresponding subset "UNGDC Chile (1990-2022)".  
 
 
 # Relevant methodological considerations
