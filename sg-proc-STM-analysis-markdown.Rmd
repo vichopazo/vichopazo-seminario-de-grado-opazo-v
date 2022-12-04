@@ -1,0 +1,102 @@
+---
+title: The evolution of environmental issues in Chilean foreign policy discourse.
+  Applying Structural Topic Modelling to the UN General Debate interventions by Chilean
+  officials from 1971 to 2022
+author: "Vicente Opazo Cortés"
+date: "2022-10-17"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r library_packages, warning=FALSE, include=FALSE}
+library(pacman)
+pacman::p_load(readr, 
+               stm, 
+               dplyr, 
+               openxlsx, 
+               readtext, 
+               quanteda)
+
+```
+
+```{r download_data, eval=FALSE, warning=FALSE, include=FALSE}
+url <- "https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1971-2022/data/637ff72d48124c2bc6675284/UNGDC-Chile-1990-2022.zip" 
+download.file(url, "UNGC_Chile_1990_2022.zip")
+unzip("UNGC_Chile_1990_2022.zip")
+```
+
+```{r download_metadata, eval=FALSE, warning=FALSE, include=FALSE}
+url2 <- "https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1971-2022/data/6380ffedc2cb154d29273ef0/metadata-UNGDC-Chile-1990-2022.xlsx" 
+download.file(url2, "metadata_UNGDC_Chile_1990_2022.xlsx", quiet = TRUE, mode = "wb")
+```
+
+```{r creating_dataset_from_data, warning=FALSE, include=FALSE}
+documents <- readtext("UNGDC_Chile_1990_2022", 
+                     ignore_missing_files = FALSE, 
+                     text_field = NULL,
+                     docid_field = NULL)
+```
+
+```{r creating_dataset_from_metadata, warning=FALSE, include=FALSE}
+meta_ungdc_chile <- read.xlsx("metadata_UNGDC_Chile_1990_2022.xlsx", sheet = 1)
+meta_ungdc_chile$gov_rating <- as.factor(meta_ungdc_chile$gov_rating)
+meta_ungdc_chile$year <- as.integer(meta_ungdc_chile$year)
+```
+
+```{r data_pre-processing, warning=FALSE, include=FALSE}
+data_proc <- textProcessor(documents$text, metadata = meta_ungdc_chile)
+output <- prepDocuments(data_proc$documents, data_proc$vocab, data_proc$meta, lower.thresh = 1, upper.thresh = 33)  
+docs <- output$documents
+vocab <- output$vocab
+meta <-output$meta
+```
+
+```{r exploring_optimal_K, echo=FALSE, warning=FALSE}
+findingk <- searchK(output$documents, output$vocab, K = c(10:30), prevalence =~ gov_rating + s(year), data = meta, verbose=FALSE)
+ plot(findingk) #optimal K=15:30
+```
+
+```{r running_STM_plus_visualizing_results, echo=FALSE, warning=FALSE}
+STM <- stm(documents = output$documents, vocab = output$vocab,
+                  K = 24, prevalence =~ gov_rating + s(year),
+                  max.em.its = 75, data = output$meta, 
+               init.type = "Spectral", verbose = FALSE) 
+plot(STM)
+```
+
+```{r exploring_STM, eval=FALSE, warning=FALSE, include=FALSE}
+labelTopics(STM) #check probability (prob) + frequency & exclusivity (frex) 
+findThoughts(STM, texts = documents$text,
+     n = 1, topics = 10)
+findThoughts(STM, texts = documents$text,
+     n = 1, topics = 4)
+findThoughts(STM, texts = documents$text,
+     n = 1, topics = 5)
+set.seed(930)
+cloud(STM, topic=1, max.words = 30)
+cloud(STM, topic=2, max.words = 30)
+cloud(STM, topic=3, max.words = 30)
+cloud(STM, topic=4, max.words = 30)
+cloud(STM, topic=5, max.words = 30)
+```
+
+```{r covs_effect_prediction_models, echo=FALSE, warning=FALSE}
+predict_topics <- estimateEffect(1:17 ~ gov_rating + s(year), STM, meta = output$meta, uncertainty = "Global")
+
+plot.new
+plot(predict_topics, covariate = "gov_rating", topics = c(6,17,13), model = STM, method = "difference", cov.value1 = "Centre-to-left", cov.value2 = "Centre-to-right", xlab = "More left-wing leaning ... More right-wing leaning", main = "Effect of political position (Left/Right axis)", xlim = c(-1,1), ci.level = .95)
+```
+
+```{r covs_effect_prediction_models_reference_model_2, echo=FALSE, warning=FALSE}
+plot(predict_topics, covariate = "Year", method = "continuous", topics = c(5),
+model = STM, xlab = "Time in years (1971-2022)")
+```
+```{r covs_effect_prediction_models_reference_model_3, echo=FALSE, warning=FALSE}
+plot(predict_topics, covariate = "Year", method = "continuous", topics = c(5, 3, 4),
+model = STM, xlab = "Time in years (1971-2022)")
+```
