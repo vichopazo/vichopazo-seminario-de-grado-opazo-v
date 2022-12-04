@@ -4,17 +4,14 @@ Topic modelling analysis of all General Debate of the United Nations General Ass
 
 
 # Relevant methodological considerations
-
-*Traducir...
-
-Por diferentes motivos técnicos (i. e, formato y/o disponibilidad de los textos) la base de datos se creó a partir de múltiples fuentes, a saber: 
-
--Para el período 1971-2020, se utilizaron los textos contenidos en Jankin Mikhaylov, Slava; Baturo, Alexander; Dasandi, Niheer, 2017, "United Nations General Debate Corpus", https://doi.org/10.7910/DVN/0TJX8Y, Harvard Dataverse, V6.
-
--Para el año 2021 se llevó a cabo una traducción automática del discurso realizado por el Presidente Sebastián Piñera, pues hasta la fecha (25/09/2022) se encuentra disponible únicamente su transcripción al español. Para ello se utilizó la herramienta de traducción de google docs. El documento original fue obtenido de la página oficial de Prensa Presidencial (ver [link](https://prensa.presidencia.cl/discurso.aspx?id=180101)).
-
--Para el año 2022 se agregó la transcripción oficial del discurso realizado por el Presidente Gabriel Boric, la cual se encuentra disponible en la versión en inglés del sitio web del Gobierno de Chile (ver [link](https://www.gob.cl/en/news/president-gabriel-boric-font-speaks-77th-session-united-nations-general-assembly/)).
-
-**Si bien la investigación para la cual se construyó este corpus sigue en desarrollo, el UNGDC_Chile_1971_2022 se encuentra disponible para su uso público sin ningún inconveniente. Todos las intervenciones de Chile en el Debate General de las Naciones Unidas, desde 1971 a 2022 están contenidas en este corpus, en formato .txt y catalogadas en virtud de: 1-el código ISO 3166-alpha 3 de Chile, 2-la sesión de la Asamblea General de la ONU en que se pronunció el discurso y 3-el año correspondiente (e. g., CHL_26_1971), siguiendo así la lógica del corpus original antes señalado (UNGDC). Los textos se etiquetaron de esta manera para facilitar su integración a nuevos corpus, así como el análisis y manipulación de los datos. 
-
-***El UNGDC Chile (1971-2022) viene acompañado de la metadata pertinente para efectos de aplicar el STM. Esta dice relación con: 1-el año de pronunciamiento del discurso, 2-el número de sesión del Debate General de las UN correspondiente, 3-el país del orador (i. e., Chile), 4-su nombre completo, 5-su cargo oficial, 6-notas adicionales y 7-la afiliación partidaria del orador. Para descargar esta metadata haga [click aquí](https://www.researchgate.net/profile/Vicente_Opazo/publication/363844089_UN_General_Debate_Corpus_Chile_1971-2022/data/634ca9fbff870c55ce2b974b/Metadata-UNGDC-Chile-1971-2022.xlsx).
+ 
+For the purpose of our research, we created a new corpus (i.e., set of texts), namely the United Nations General Debate corpus Chile. It consists of all the 52 interventions by Chilean officials/representatives at the UNGD from 1971 to 2022. Furthermore, we created an ad hoc subset to analyse the speeches since the return to democracy: the UNGD Chile (1990-2022), consisting of 33 documents. We also created both corpora’s metadata . The UNGD corpus Chile is a narrowed version of the “United Nations General Debate Corpus” (Mikhaylov, J.S., Baturo, A., and Dasandi, N. 2017), plus the most recent interventions by President Sebastián Piñera (2021) and President Gabriel Boric (2022). 
+The Spanish version of the 2021 speech delivered by President Piñera was retrieved from the official site of the Presidential Press Office  and then translated to English via automatic translation tools (we then proceeded to review it to check for grammar mistakes), while the official English version of the 2022 intervention by President Boric was available in his government’s site .  
+UNGD corpus Chile documents are in .txt format and labelled according to a) the ISO 3166-alpha 3 code of Chile, b) the session of United Nations General Assembly in which the speech was delivered, and c) the corresponding year (e.g., CHL_26_1971). The texts were labelled in such way in order to follow the UNGC logic, thus making data manipulation -e.g., integration to other corpora- easier, keeping a standardised format. The following metadata is available for our main corpus and the 1990-2022 subset: 
+•	the year of delivery of the speech
+•	the number of the UN General Debate session
+•	the country of the speaker
+•	the speaker’s full name
+•	the speaker’s post
+•	additional notes 
+•	the “government rating” of the corresponding government in office.
